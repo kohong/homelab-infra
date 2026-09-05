@@ -1,0 +1,7 @@
+---
+- name: Configure Debian baseline
+  hosts: debian
+  become: true
+
+  roles:
+    - common
