@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -euo pipefail
 
 TOKEN_FILE="${HOME}/.secrets/pve-token.json"
 
