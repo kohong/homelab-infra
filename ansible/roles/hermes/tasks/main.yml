@@ -1,0 +1,5 @@
+# roles/hermes/tasks/main.yml
+---
+- name: Hermes role placeholder
+  ansible.builtin.debug:
+    msg: "Configuring hermes"

@@ -1,12 +1,24 @@
 ---
-- name: Configure all managed hosts
+- name: Configure all hosts
   hosts: all
   become: true
   roles:
     - common
 
-- name: Configure management hosts
+- name: Configure management nodes
   hosts: management
   become: true
   roles:
     - management
+
+- name: Configure AI gateway nodes
+  hosts: ai_gateway
+  become: true
+  roles:
+    - ai_gateway
+
+- name: Configure Agents nodes
+  hosts: agents
+  become: true
+  roles:
+    - hermes

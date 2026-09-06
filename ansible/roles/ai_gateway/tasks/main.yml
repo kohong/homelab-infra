@@ -1,0 +1,5 @@
+# roles/ai_gateway/tasks/main.yml
+---
+- name: AI gateway role placeholder
+  ansible.builtin.debug:
+    msg: "Configuring AI gateway"
