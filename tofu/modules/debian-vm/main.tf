@@ -34,5 +34,10 @@ resource "proxmox_virtual_environment_vm" "this" {
         address = "dhcp"
       }
     }
+
+    user_account {
+      username = "homelab"
+      keys     = var.ssh_public_keys
+    }
   }
 }

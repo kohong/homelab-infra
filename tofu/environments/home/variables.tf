@@ -21,3 +21,20 @@ variable "vm_bridge" {
   type        = string
   default     = "vmbr0"
 }
+
+variable "vms" {
+  type = map(object({
+    vm_id  = number
+    cores  = number
+    memory = number
+  }))
+
+  default = {
+    mgmt-01 = {
+      vm_id  = 190
+      cores  = 2
+      memory = 4096
+    }
+
+  }
+}

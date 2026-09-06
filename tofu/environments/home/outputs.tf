@@ -1,9 +1,11 @@
-output "test_vm_id" {
-  description = "VM ID of the test Debian VM"
-  value       = module.test.vm_id
-}
+output "vms" {
+  description = "VM details for all managed VMs"
 
-output "test_ipv4_addresses" {
-  description = "IPv4 addresses reported by the QEMU guest agent"
-  value       = module.test.ipv4_addresses
+  value = {
+    for name, vm in module.vm :
+    name => {
+      vm_id          = vm.vm_id
+      ipv4_addresses = vm.ipv4_addresses
+    }
+  }
 }

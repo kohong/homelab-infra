@@ -36,3 +36,9 @@ variable "bridge" {
   type        = string
   default     = "vmbr0"
 }
+
+variable "ssh_public_keys" {
+  description = "SSH public keys to install for the VM user"
+  type        = list(string)
+  default     = []
+}
