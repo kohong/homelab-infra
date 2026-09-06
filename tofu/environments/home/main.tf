@@ -14,7 +14,5 @@ module "vm" {
   datastore      = var.vm_datastore
   bridge         = var.vm_bridge
 
-  ssh_public_keys = [
-    local.ansible_public_key
-  ]
+  ssh_public_keys = local.ssh_public_keys
 }
