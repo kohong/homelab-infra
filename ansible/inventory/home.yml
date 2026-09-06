@@ -1,7 +1,0 @@
-all:
-  children:
-    debian:
-      hosts:
-        iac-tests-01:
-          ansible_host: 192.168.10.23
-          ansible_user: homelab

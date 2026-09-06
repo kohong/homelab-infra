@@ -1,0 +1,50 @@
+---
+- name: Ensure OpenTofu repository dependencies are installed
+  ansible.builtin.apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg
+    state: present
+    update_cache: true
+
+- name: Ensure apt keyring directory exists
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: "0755"
+
+- name: Download OpenTofu signing key
+  ansible.builtin.get_url:
+    url: https://get.opentofu.org/opentofu.gpg
+    dest: /etc/apt/keyrings/opentofu.gpg
+    mode: "0644"
+
+- name: Download OpenTofu repository signing key
+  ansible.builtin.get_url:
+    url: https://packages.opentofu.org/opentofu/tofu/gpgkey
+    dest: /tmp/opentofu-repo.gpg
+    mode: "0644"
+
+- name: Convert OpenTofu repository key to GPG keyring
+  ansible.builtin.command:
+    cmd: >
+      gpg --dearmor
+      --yes
+      --output /etc/apt/keyrings/opentofu-repo.gpg
+      /tmp/opentofu-repo.gpg
+  changed_when: false
+
+- name: Configure OpenTofu apt repository
+  ansible.builtin.copy:
+    dest: /etc/apt/sources.list.d/opentofu.list
+    mode: "0644"
+    content: |
+      deb [signed-by=/etc/apt/keyrings/opentofu.gpg,/etc/apt/keyrings/opentofu-repo.gpg] https://packages.opentofu.org/opentofu/tofu/any/ any main
+
+- name: Install OpenTofu
+  ansible.builtin.apt:
+    name: tofu
+    state: present
+    update_cache: true

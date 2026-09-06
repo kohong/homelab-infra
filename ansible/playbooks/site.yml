@@ -1,0 +1,12 @@
+---
+- name: Configure all managed hosts
+  hosts: all
+  become: true
+  roles:
+    - common
+
+- name: Configure management hosts
+  hosts: management
+  become: true
+  roles:
+    - management

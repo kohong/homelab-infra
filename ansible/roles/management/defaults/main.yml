@@ -1,0 +1,8 @@
+---
+management_packages:
+  - ansible
+  - git
+  - openssh-client
+  - python3
+  - python3-pip
+  - python3-venv

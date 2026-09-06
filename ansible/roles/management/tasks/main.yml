@@ -1,0 +1,9 @@
+---
+- name: Install management packages
+  ansible.builtin.apt:
+    name: "{{ management_packages }}"
+    state: present
+    update_cache: true
+
+- name: Install OpenTofu
+  ansible.builtin.import_tasks: opentofu.yml
