@@ -24,16 +24,32 @@ variable "vm_bridge" {
 
 variable "vms" {
   type = map(object({
-    vm_id  = number
-    cores  = number
-    memory = number
+    vm_id          = number
+    cores          = number
+    memory         = number
+    ansible_groups = optional(list(string), [])
   }))
 
   default = {
     mgmt-01 = {
-      vm_id  = 190
-      cores  = 2
-      memory = 4096
+      vm_id          = 190
+      cores          = 2
+      memory         = 4096
+      ansible_groups = ["management"]
+    }
+
+    ai-gateway-01 = {
+      vm_id          = 201
+      cores          = 4
+      memory         = 8192
+      ansible_groups = ["ai_gateway"]
+    }
+
+    hermes-01 = {
+      vm_id          = 202
+      cores          = 4
+      memory         = 8192
+      ansible_groups = ["agents"]
     }
 
   }
