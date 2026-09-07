@@ -7,3 +7,6 @@
 
 - name: Install OpenTofu
   ansible.builtin.import_tasks: opentofu.yml
+
+- name: Install Tailscale
+  ansible.builtin.import_tasks: tailscale.yml
