@@ -6,8 +6,9 @@ module "vm" {
   name  = each.key
   vm_id = each.value.vm_id
 
-  cores  = each.value.cores
-  memory = each.value.memory
+  cores     = each.value.cores
+  memory    = each.value.memory
+  disk_size = each.value.disk_size
 
   node_name      = var.proxmox_node
   template_vm_id = var.template_vm_id

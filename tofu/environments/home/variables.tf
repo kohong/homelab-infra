@@ -27,6 +27,7 @@ variable "vms" {
     vm_id          = number
     cores          = number
     memory         = number
+    disk_size      = number
     ansible_groups = optional(list(string), [])
   }))
 
@@ -35,6 +36,7 @@ variable "vms" {
       vm_id          = 190
       cores          = 2
       memory         = 4096
+      disk_size      = 15
       ansible_groups = ["management"]
     }
 
@@ -42,6 +44,7 @@ variable "vms" {
       vm_id          = 201
       cores          = 4
       memory         = 8192
+      disk_size      = 100
       ansible_groups = ["ai_gateway"]
     }
 
@@ -49,6 +52,7 @@ variable "vms" {
       vm_id          = 202
       cores          = 4
       memory         = 8192
+      disk_size      = 100
       ansible_groups = ["agents"]
     }
 

@@ -6,7 +6,7 @@ output "ansible_inventory" {
     name => {
       vm_id          = vm.vm_id
       ipv4_addresses = vm.ipv4_addresses
-      groups          = var.vms[name].ansible_groups
+      groups         = var.vms[name].ansible_groups
     }
   }
 }

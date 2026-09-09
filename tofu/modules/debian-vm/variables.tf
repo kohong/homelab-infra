@@ -42,3 +42,8 @@ variable "ssh_public_keys" {
   type        = list(string)
   default     = []
 }
+
+variable "disk_size" {
+  type    = number
+  default = 15
+}
