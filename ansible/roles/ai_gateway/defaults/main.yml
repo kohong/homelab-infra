@@ -1,2 +1,5 @@
 ---
-ollama_listen_address: "0.0.0.0:11434"
+ollama_listen_address: "127.0.0.1:11434"
+
+ollama_models:
+  - qwen3:8b

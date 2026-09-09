@@ -1,0 +1,49 @@
+---
+- name: Install Caddy dependencies
+  ansible.builtin.apt:
+    name:
+      - curl
+      - ca-certificates
+      - gnupg
+      - debian-keyring
+      - debian-archive-keyring
+      - apt-transport-https
+    state: present
+    update_cache: true
+
+- name: Download Caddy repository signing key
+  ansible.builtin.get_url:
+    url: https://dl.cloudsmith.io/public/caddy/stable/gpg.key
+    dest: /usr/share/keyrings/caddy-stable-archive-keyring.asc
+    mode: "0644"
+
+- name: Add Caddy repository
+  ansible.builtin.apt_repository:
+    repo: >-
+      deb [signed-by=/usr/share/keyrings/caddy-stable-archive-keyring.asc]
+      https://dl.cloudsmith.io/public/caddy/stable/deb/debian
+      any-version main
+    filename: caddy-stable
+    state: present
+
+- name: Install Caddy
+  ansible.builtin.apt:
+    name: caddy
+    state: present
+    update_cache: true
+
+- name: Deploy Caddyfile
+  ansible.builtin.template:
+    src: Caddyfile.j2
+    dest: /etc/caddy/Caddyfile
+    owner: root
+    group: root
+    mode: "0644"
+  notify:
+    - Validate and reload Caddy
+
+- name: Ensure Caddy is enabled and running
+  ansible.builtin.systemd:
+    name: caddy
+    enabled: true
+    state: started

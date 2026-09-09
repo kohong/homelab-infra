@@ -41,7 +41,7 @@ variable "vms" {
     ai-gateway-01 = {
       vm_id          = 201
       cores          = 4
-      memory         = 8192
+      memory         = 12288
       ansible_groups = ["ai_gateway"]
     }
 

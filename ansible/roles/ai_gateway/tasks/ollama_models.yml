@@ -1,0 +1,16 @@
+---
+- name: Get installed Ollama models
+  ansible.builtin.command:
+    cmd: ollama list
+  register: ollama_installed_models
+  changed_when: false
+
+- name: Pull required Ollama models
+  ansible.builtin.command:
+    cmd: "ollama pull {{ item }}"
+  loop: "{{ ollama_models }}"
+  when: >
+    ollama_installed_models.stdout_lines
+    | select('match', '^' ~ (item | regex_escape) ~ '\\s')
+    | list
+    | length == 0

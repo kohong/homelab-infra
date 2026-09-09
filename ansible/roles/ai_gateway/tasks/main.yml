@@ -1,37 +1,9 @@
 ---
-- name: Install dependencies
-  ansible.builtin.apt:
-    name:
-      - curl
-      - ca-certificates
-    state: present
-    update_cache: true
+- name: Configure Ollama
+  ansible.builtin.import_tasks: ollama.yml
+  
+- name: Manage Ollama models
+  ansible.builtin.import_tasks: ollama_models.yml
 
-- name: Install Ollama
-  ansible.builtin.shell: |
-    curl -fsSL https://ollama.com/install.sh | sh
-  args:
-    creates: /usr/local/bin/ollama
-
-- name: Ensure Ollama service override directory exists
-  ansible.builtin.file:
-    path: /etc/systemd/system/ollama.service.d
-    state: directory
-    mode: "0755"
-
-- name: Configure Ollama listen address
-  ansible.builtin.copy:
-    dest: /etc/systemd/system/ollama.service.d/override.conf
-    mode: "0644"
-    content: |
-      [Service]
-      Environment="OLLAMA_HOST={{ ollama_listen_address }}"
-  notify:
-    - Restart Ollama
-
-- name: Ensure Ollama is enabled and running
-  ansible.builtin.systemd:
-    name: ollama
-    enabled: true
-    state: started
-    daemon_reload: true
+- name: Configure Caddy
+  ansible.builtin.import_tasks: caddy.yml
